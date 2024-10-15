@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boilerplate</title>
+    <title>Flight Search</title>
 </head>
 <body>
 
+    <h1>Flight Search</h1>
+
+    <!-- departure dropdown -->
+    <label for="departure">Select Departure Airport Code:</label>
+    <select id="departure" name="departure">
+        {% for code in departureCodes %}
+            <option value="{{ code }}">{{ code }}</option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <!-- arrival dropdown -->
+    <label for="arrival">Select Arrival Airport Code:</label>
+    <select id="arrival" name="arrival">
+        {% for code in arrivalCodes %}
+            <option value="{{ code }}">{{ code }}</option>
+        {% endfor %}
+    </select>
+
 </body>
 </html>
+
 
