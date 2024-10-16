@@ -9,25 +9,61 @@
 <body>
 
     <h1>Flight Search</h1>
+    
+    <form action="/search" method="POST">
+        <!-- departure dropdown -->
+        <label for="departure">Select Departure Airport Code:</label>
+        <select id="departure" name="departure">
+            {% for code in departureCodes %}
+                <option value="{{ code }}">{{ code }}</option>
+            {% endfor %}
+        </select>
 
-    <!-- departure dropdown -->
-    <label for="departure">Select Departure Airport Code:</label>
-    <select id="departure" name="departure">
-        {% for code in departureCodes %}
-            <option value="{{ code }}">{{ code }}</option>
-        {% endfor %}
-    </select>
+        <br><br>
+
+        <!-- arrival dropdown -->
+        <label for="arrival">Select Arrival Airport Code:</label>
+        <select id="arrival" name="arrival">
+            {% for code in arrivalCodes %}
+                <option value="{{ code }}">{{ code }}</option>
+            {% endfor %}
+        </select>
+        
+        <br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
 
     <br><br>
 
-    <!-- arrival dropdown -->
-    <label for="arrival">Select Arrival Airport Code:</label>
-    <select id="arrival" name="arrival">
-        {% for code in arrivalCodes %}
-            <option value="{{ code }}">{{ code }}</option>
-        {% endfor %}
-    </select>
+    <!-- check if a message is available (no flight found), display message -->
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
 
+    <!-- check if flight details available, show results in table form -->
+    {% if flightId %}
+        <h2>Flight Details</h2>
+        <table border="1">
+            <tr>
+                <th>Flight ID</th>
+                <th>Departure Date</th>
+                <th>Departure Time</th>
+                <th>Price (USD)</th>
+                <th>Select</th> 
+            </tr>
+            <tr>
+                <td>{{ flightId }}</td>
+                <td>{{ departureDate }}</td>
+                <td>{{ departureTime }}</td>
+                <td>{{ price }}</td>
+                <td>
+                    <button type="submit">Select Flight</button>
+                </td>
+            </tr>
+        </table>        
+    {% endif %}
+    
 </body>
 </html>
 
