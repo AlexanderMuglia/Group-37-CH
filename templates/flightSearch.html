@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Search</title>
 </head>
@@ -36,12 +35,12 @@
 
     <br><br>
 
-    <!-- check if a message is available (no flight found), display message -->
+    <!-- display message if no flight found -->
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
 
-    <!-- check if flight details available, show results in table form -->
+    <!-- display flight details in table form -->
     {% if flightId %}
         <h2>Flight Details</h2>
         <table border="1">
@@ -49,14 +48,13 @@
                 <th>Flight ID</th>
                 <th>Departure Date</th>
                 <th>Departure Time</th>
-                <th>Price (USD)</th>
-                <th>Select</th> 
+                <th>Price</th>
             </tr>
             <tr>
                 <td>{{ flightId }}</td>
                 <td>{{ departureDate }}</td>
                 <td>{{ departureTime }}</td>
-                <td>{{ price }}</td>
+                <td>${{ price }}</td>
                 <td>
                     <button type="submit">Select Flight</button>
                 </td>
@@ -66,5 +64,6 @@
     
 </body>
 </html>
+
 
 
