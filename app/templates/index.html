@@ -6,14 +6,9 @@
     <title>Input Form</title>
 </head>
 <body>
-    <h1> Welcome! </h1>
-    <h1>Enter something:</h1>
-    <form method="POST">
-        <input type="text" name="user_input" required>
-        <button type="submit">Submit</button>
-    </form>
-    {% if user_input %}
-        <h2>You entered: {{ user_input }}</h2>
-    {% endif %}
+    <h1> Welcome!</h1>
+    <a href="/read-csv">Search for flights</a>
+    <br>
+    <a href="/view">View my flights</a>
 </body>
 </html>

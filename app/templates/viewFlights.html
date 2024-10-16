@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flights</title>
+</head>
+<body>
+
+    <h1>My Flights</h1>
+
+    <!-- display message if no flight found -->
+    {% if len(flights) == 0 %}
+        <p>Looks like you have no flights booked.</p><a href="read-csv" Search Flights />
+    {% endif %}
+
+    <!-- display flight details in table form -->
+        <h2>Flight Details</h2>
+        <table border="1">
+            <tr>
+                <th>Flight ID</th>
+                <th>Seat Number</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure Date</th>
+                <th>Departure Time</th>
+                <th>Price Paid</th>
+            </tr>
+    {% for flight in flights %}
+            <tr>
+                <td>{{ flight["id"] }}</td>
+                <td>{{ flight["seatNum"] }}</td>
+                <td>{{ flight["departureAirport"] }}</td>
+                <td>{{ flight["arrivalAirport"] }}</td>
+                <td>{{ flight["departureDate"] }}</td>
+                <td>{{ flight["departureTime"] }}</td>
+                <td>{{ flight["price"] }}</td>
+            </tr>
+    {% endfor %}
+        </table>
+
+</body>
+</html>
+

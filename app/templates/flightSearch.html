@@ -8,7 +8,7 @@
 <body>
 
     <h1>Flight Search</h1>
-    
+
     <form action="/search" method="POST">
         <!-- departure dropdown -->
         <label for="departure">Select Departure Airport Code:</label>
@@ -27,9 +27,9 @@
                 <option value="{{ code }}">{{ code }}</option>
             {% endfor %}
         </select>
-        
+
         <br><br>
-        
+
         <button type="submit">Submit</button>
     </form>
 
@@ -59,11 +59,9 @@
                     <button type="submit">Select Flight</button>
                 </td>
             </tr>
-        </table>        
+        </table>
     {% endif %}
-    
+
 </body>
 </html>
-
-
 

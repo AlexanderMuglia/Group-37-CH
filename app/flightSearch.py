@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Blueprint
 import csv
 
-app = Flask(__name__)
-
-@app.route('/read-csv')
+bp = Blueprint('flightSearch', __name__)
+@bp.route('/read-csv')
 def read_csv():
     departureCodes = []
     arrivalCodes = []
@@ -24,7 +23,7 @@ def read_csv():
     return render_template('flightSearch.html', departureCodes=departureCodes, arrivalCodes=arrivalCodes)
 
 # route to handle form submission
-@app.route('/search', methods=['POST'])
+@bp.route('/search', methods=['POST'])
 def search():
     # get selected departure and arrival codes from the form
     departure = request.form.get('departure')
@@ -56,9 +55,3 @@ def search():
         return render_template('flightSearch.html', flightId=flightId, departureDate=departureDate, departureTime=departureTime, price=price)
     else:
         return render_template('flightSearch.html', message="No flight found from your selected departure and arrival airports")
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
