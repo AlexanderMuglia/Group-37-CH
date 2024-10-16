@@ -8,7 +8,7 @@ app.register_blueprint(viewFlights_bp)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', user_input=None)
+    return render_template('index.html', user="0001")
 
 if __name__ == '__main__':
     app.run(debug=True)

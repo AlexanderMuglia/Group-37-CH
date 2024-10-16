@@ -3,8 +3,8 @@ import csv
 
 bp = Blueprint('viewFlights', __name__)
 
-@bp.route('/view')
-def view_flights():
+@bp.route('/view/<uid>')
+def view_flights(uid):
     flights = []
     user_csv_file_path = 'db/users.csv'
     
@@ -14,7 +14,7 @@ def view_flights():
     # skip headings row
     next(reader)
     for row in reader:
-        if row[0] == "0001":
+        if row[0] == uid:
             for flight in row[3].split("|"):
                 flightMap = get_flight_info(flight)
                 flights.append(flightMap)
