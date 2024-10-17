@@ -1,5 +1,5 @@
 import pytest
-from flightSearch import app
+from app import app
 
 @pytest.fixture
 def client():
