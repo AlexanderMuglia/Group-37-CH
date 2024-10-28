@@ -1,41 +1,43 @@
 from flask import Flask, render_template, request, Blueprint
-import csv
+import sqlite3
 
 bp = Blueprint('viewFlights', __name__)
+
+con = sqlite3.connect("db/main.db", check_same_thread=False)
+cur = con.cursor()
 
 @bp.route('/view/<uid>')
 def view_flights(uid):
     flights = []
-    user_csv_file_path = 'db/users.csv'
-    
-    # read csv file
-    users = open(user_csv_file_path, newline="")
-    reader = csv.reader(users)
-    # skip headings row
-    next(reader)
-    for row in reader:
-        if row[0] == uid:
-            for flight in row[3].split("|"):
-                flightMap = get_flight_info(flight)
+
+    # get current user info from db
+    res = cur.execute(f"SELECT * FROM user WHERE uid='{uid}'")
+    user_info = res.fetchone()
+
+    if user_info:
+        for flight in user_info[3].split("|"):
+            flightMap = get_flight_info(flight)
+            if flightMap:
                 flights.append(flightMap)
+
     return render_template('viewFlights.html', flights=flights)
 
 def get_flight_info(flight):
-    flight_csv_file_path = 'db/flights.csv'
     ret = {}
-    # read csv file
-    flight_file = open(flight_csv_file_path, newline="")
-    reader = csv.reader(flight_file)
-    # skip headings row
-    next(reader)
-    for row in reader:
-        if row[0] == flight[:5]:
-            ret["id"] = row[0]
-            ret["departureDate"] = row[1][:10]
-            ret["departureTime"] = row[1][11:]
-            ret["departureAirport"] = row[2]
-            ret["arrivalAirport"] = row[3]
-            ret["price"] = "$"+row[4]
-            ret["seatNum"] = flight[-2:]
 
-    return ret
+    # get flight info from db
+    res = cur.execute(f"SELECT * FROM flight WHERE fid='{flight[:5]}'")
+    flight_info = res.fetchone()
+
+    if flight_info:
+        ret["id"] = flight_info[0]
+        ret["departureDate"] = flight_info[1][:10]
+        ret["departureTime"] = flight_info[1][11:]
+        ret["departureAirport"] = flight_info[2]
+        ret["arrivalAirport"] = flight_info[3]
+        ret["price"] = "$" + flight_info[4]
+        ret["seatNum"] = flight[-2:]
+        return ret
+    else:
+        return None
+
