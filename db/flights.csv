@@ -1,5 +1,0 @@
-fid,departure_datetime,departure_code,arrival_code,price,seats_taken
-f0001,2024-12-24T17:00:00,YYZ,LAX,829.00,s01|s02
-f0002,2025-01-14T22:00:00,YYC,YYZ,432.00,s02|s03
-f0003,2024-12-29T09:30:00,YYZ,YYC,649.00,s01
-f1243,2024-12-29T19:10:00,YYZ,SYD,2249.00,

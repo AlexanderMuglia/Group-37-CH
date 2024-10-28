@@ -24,6 +24,6 @@ def test_view_0001(client):
     response = client.get('/view/0001')
     assert response.status_code == 200
     assert b"Looks like you have no flights booked." not in response.data
-    assert b"Departure Airport"
+    assert b"Departure Airport" in response.data
     assert b"$829.00" in response.data
     assert b"01" in response.data
