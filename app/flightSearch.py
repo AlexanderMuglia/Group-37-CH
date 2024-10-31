@@ -6,25 +6,21 @@ bp = Blueprint('flightSearch', __name__)
 con = sqlite3.connect("db/main.db", check_same_thread=False)
 cur = con.cursor()
 
-@bp.route('/read-csv')
-def read_csv():
+@bp.route('/read-table')
+def read_table():
     departureCodes = []
     arrivalCodes = []
 
-    # Query distinct departure and arrival codes from the database
     cur.execute("SELECT DISTINCT departure_code FROM flight")
     departureCodes = [row[0] for row in cur.fetchall()]
 
     cur.execute("SELECT DISTINCT arrival_code FROM flight")
     arrivalCodes = [row[0] for row in cur.fetchall()]
 
-    # Pass lists to HTML template
     return render_template('flightSearch.html', departureCodes=departureCodes, arrivalCodes=arrivalCodes)
 
-# Route to handle form submission
 @bp.route('/search', methods=['POST'])
 def search():
-    # Get selected departure and arrival codes from the form
     departure = request.form.get('departure')
     arrival = request.form.get('arrival')
 
@@ -34,7 +30,6 @@ def search():
     price = None
     flightAvailable = False
 
-    # Query the database for a flight matching the selected departure and arrival codes
     cur.execute("""
         SELECT fid, departure_datetime, price
         FROM flight
@@ -50,7 +45,6 @@ def search():
         departureTime = flight[1][11:]
         price = flight[2]
 
-    # Return appropriate message/variables
     if flightAvailable:
         return render_template('flightSearch.html', flightId=flightId, departureDate=departureDate, departureTime=departureTime, price=price)
     else:
