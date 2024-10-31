@@ -8,9 +8,9 @@ def client():
     client = app.test_client()
     yield client
 
-def test_read_csv_route(client):
-    # test read-csv route to ensure it loads correctly
-    response = client.get('/read-csv')
+def test_read_table_route(client):
+    # test read-table route to ensure it loads correctly
+    response = client.get('/read-table')
     assert response.status_code == 200
     assert b"Flight Search" in response.data  
 
