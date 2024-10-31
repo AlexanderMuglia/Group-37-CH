@@ -7,17 +7,20 @@ bp = Blueprint('flightSearch', __name__)
 con = sqlite3.connect("db/main.db", check_same_thread=False)
 cur = con.cursor()
 
-@bp.route('/read-table')
-def read_table():
-    departureCodes = []
-    arrivalCodes = []
-
+def get_codes():
     # get departure and arrival codes from flight db
     cur.execute("SELECT DISTINCT departure_code FROM flight")
     departureCodes = [row[0] for row in cur.fetchall()]
 
     cur.execute("SELECT DISTINCT arrival_code FROM flight")
     arrivalCodes = [row[0] for row in cur.fetchall()]
+
+    return departureCodes, arrivalCodes
+
+
+@bp.route('/read-table')
+def read_table():
+    departureCodes, arrivalCodes = get_codes()
 
     return render_template('flightSearch.html', departureCodes=departureCodes, arrivalCodes=arrivalCodes)
 
@@ -26,6 +29,7 @@ def read_table():
 def search():
     departure = request.form.get('departure')
     arrival = request.form.get('arrival')
+    departureCodes, arrivalCodes = get_codes()
 
     # initialize variables to hold info
     flightId = None
@@ -54,7 +58,7 @@ def search():
         price = flight[2]
 
     if flightAvailable:
-        return render_template('flightSearch.html', flightId=flightId, departureDate=departureDate, departureTime=departureTime, price=price)
+        return render_template('flightSearch.html', flightId=flightId, departureDate=departureDate, departureTime=departureTime, price=price, departureCodes=departureCodes, arrivalCodes=arrivalCodes)
     else:
-        return render_template('flightSearch.html', message="No flight found from your selected departure and arrival airports")
+        return render_template('flightSearch.html', message="No flight found from your selected departure and arrival airports", departureCodes=departureCodes, arrivalCodes=arrivalCodes)
 
