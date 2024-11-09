@@ -30,5 +30,18 @@ pytest -v
 ```
 
 ## Testing code coverage
-Install coverage.py if you haven't already with: pip install coverage
-Then run: coverage report -m to see a full report on the code coverage
+Install coverage.py if you haven't already with
+```
+pip install coverage
+```
+
+Then in the root project directory, run the test scripts through coverage with
+```
+coverage run -m pytest -v
+```
+
+Finally, view the coverage report with
+```
+coverage report -m 
+```
+to see a full report on the code coverage
