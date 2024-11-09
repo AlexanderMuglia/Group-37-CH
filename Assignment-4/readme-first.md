@@ -1,4 +1,4 @@
-# Assignment 3
+# Assignment 4
 
 ### Creating the Database
 If the database hasn't been created locally yet or has somehow gotten corrupted, run the following in the project root directory to clear and recreate the database
