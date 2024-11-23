@@ -1,5 +1,6 @@
 import pytest
 import sqlite3
+from flightSearch import get_codes
 from app import app
 
 @pytest.fixture
@@ -20,7 +21,7 @@ def test_get_codes_integration():
     expectedDepartureCodes = [row[0] for row in cur.fetchall()]
     cur.execute("SELECT DISTINCT arrival_code FROM flight")
     expectedArrivalCodes = [row[0] for row in cur.fetchall()]
-    from flightSearch import get_codes
+
     departureCodes, arrivalCodes = get_codes()
     assert departureCodes == expectedDepartureCodes
     assert arrivalCodes == expectedArrivalCodes
