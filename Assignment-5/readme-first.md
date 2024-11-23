@@ -28,6 +28,7 @@ Then, run all test files with
 ```
 pytest -v
 ```
+Integration tests run alongside the unit tests.
 
 ## Testing code coverage
 Install coverage.py if you haven't already with
