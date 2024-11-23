@@ -4,6 +4,7 @@
 - Wrote flight search integration test explanation
 - Added screenshot of test output
 - Created readme and task distribution files
+- Added text explanation pdf to github
 
 ### Alex (GitHub: AlexanderMuglia)
 - Wrote page nav integration test
