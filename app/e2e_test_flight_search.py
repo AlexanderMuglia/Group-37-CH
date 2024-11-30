@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def test_view_flights():
+def test_flight_search():
     # Set up the WebDriver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
@@ -19,22 +19,33 @@ def test_view_flights():
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "searchFlightsLink"))).click()
         print("Clicked link to get to Flight Search page")
 
-        # Step 3: Wait for results
+        # Step 3: Wait for the departure and arrival dropdowns to be visible
         WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.TAG_NAME, "table"))
+            EC.presence_of_element_located((By.ID, "departure"))
         )
-        print("Table loaded in the View Flight page")
+        print("Departure dropdown is loaded in the Flight Search page.")
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "arrival"))
+        )
+        print("Arrival dropdown is loaded in the Flight Search page.")
+
 
         # Step 4: Check if "Apple Watch" is mentioned on the page
         page_source = driver.page_source
-        if "YYZ" in page_source:
-            print("YYZ is in the page source")
+        if "Select Departure Airport Code" in page_source:
+            print("Select Departure Airport Code is in the page source")
         else:
-            print("YYZ is not in the page source")
+            print("Select Departure Airport Code is not in the page source")
+
+        if "Select Arrival Airport Code" in page_source:
+            print("Select Arrival Airport Code is in the page source")
+        else:
+            print("Select Arrival Airport Code is not in the page source")
 
     finally:
         # Close the browser
         driver.quit()
 
 if __name__ == "__main__":
-    test_view_flights()
+    test_flight_search()
