@@ -11,11 +11,11 @@ def test_flight_search():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
     try:
-        # Step 1: Navigate to Google
+        # Step 1: Navigate to the locally hosted webpage
         driver.get("http://127.0.0.1:5000")
         print("Opened site home page.")
 
-        # Step 2: click the "View Flights" link
+        # Step 2: click the "Flight Search" link
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "searchFlightsLink"))).click()
         print("Clicked link to get to Flight Search page")
 
@@ -31,7 +31,7 @@ def test_flight_search():
         print("Arrival dropdown is loaded in the Flight Search page.")
 
 
-        # Step 4: Check if "Apple Watch" is mentioned on the page
+        # Step 4: Check if arrival codes and departure codes are in the page
         page_source = driver.page_source
         if "Select Departure Airport Code" in page_source:
             print("Select Departure Airport Code is in the page source")

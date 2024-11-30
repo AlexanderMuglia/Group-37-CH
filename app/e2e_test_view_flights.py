@@ -11,21 +11,21 @@ def test_view_flights():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
     try:
-        # Step 1: Navigate to Google
+        # Step 1: Navigate to the locally hosted webpage
         driver.get("http://127.0.0.1:5000")
         print("Opened site home page.")
 
         # Step 2: click the "View Flights" link
-        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "searchFlightsLink"))).click()
-        print("Clicked link to get to Flight Search page")
+        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "viewFlightsLink"))).click()
+        print("Clicked link to get to View Flight page")
 
-        # Step 3: Wait for results
+        # Step 3: Wait for results, make sure table is there
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.TAG_NAME, "table"))
         )
         print("Table loaded in the View Flight page")
 
-        # Step 4: Check if "Apple Watch" is mentioned on the page
+        # Step 4: Check if "YYZ" is mentioned in the page
         page_source = driver.page_source
         if "YYZ" in page_source:
             print("YYZ is in the page source")
